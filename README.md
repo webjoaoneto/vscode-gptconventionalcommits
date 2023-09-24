@@ -14,7 +14,7 @@ GPTConventionalCommit is a VS Code extension that uses OpenAI's GPT-3 to generat
 1. Install the extension from the VS Code Marketplace
 2. Set your OpenAI API key in the extension's configuration (see below)
 3. Open the Git panel and select a file or files to commit (or git add files)
-4. Run `GptConvetionalCommit - Commit Message` command, or click on ![icon](assets/icon-light.svg) in the Git panel to run the command
+4. Run `GptConvetionalCommit - Commit Message` command, or click on ![icon](assets/icon-light.png) in the Git panel to run the command
 5. Review and edit the commit message as needed
 
 ## Configuration
