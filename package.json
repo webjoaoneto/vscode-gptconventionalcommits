@@ -6,13 +6,33 @@
   "engines": {
     "vscode": "^1.82.0"
   },
+  "publisher": "WebJoaoNeto",
   "categories": [
-    "Other"
+    "Other",
+    "SCM Providers"
   ],
+  "keywords": [
+    "Commit",
+    "AI",
+    "ChatGPT",
+    "GPT",
+    "git",
+    "repository"
+  ],
+  "icon": "assets/icon256.png",
   "activationEvents": [],
   "main": "./out/extension.js",
   
   "contributes": {
+    "menus": {
+      "scm/title": [
+        {
+          "command": "gptconventionalcommit.generateMessage",
+          "when": "scmProvider == git",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration":[
       {
         "title": "OpenApi API Key",
@@ -27,8 +47,12 @@
     ],
     "commands": [
       {
-        "command": "gptconventionalcommit.helloWorld",
-        "title": "Hello World"
+        "command": "gptconventionalcommit.generateMessage",
+        "title": "GptConvetionalCommit - Commit Message",
+        "icon": {
+          "dark": "assets/icon-dark.svg",
+          "light": "assets/icon-light.svg"
+        }
       }
     ]
   },
