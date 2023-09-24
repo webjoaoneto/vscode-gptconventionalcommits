@@ -5,20 +5,24 @@ import {
   SemanticSimilarityExampleSelector,
   PromptTemplate,
   FewShotPromptTemplate,
+  BaseChatPromptTemplate
 } from "langchain/prompts";
-import { HNSWLib } from "langchain/vectorstores/hnswlib";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 
-process.env.OPENAI_API_KEY = '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';
-
+export interface ConventionalGeneratorParams {
+  apiKey: string;
+}
 export class ConventionalGenerator {
-  constructor(private readonly diffMessage: string, private readonly params: any = {}) {
+  private openAi: OpenAI
+  ;
+  constructor(private readonly diffMessage: string, private readonly params: ConventionalGeneratorParams ) {
+    this.openAi = new OpenAI({
+      openAIApiKey: this.params.apiKey,
+
+    });
   }
 
   async getCommitMessage() {
-    const openAi = new OpenAI({
-      openAIApiKey: this.params.apiKey
-    });
-
     const examplePrompt = new PromptTemplate({
       inputVariables: ["diff", "output"],
       template: "Input: {diff}\nOutput: {output}",
@@ -26,9 +30,10 @@ export class ConventionalGenerator {
 
     const exampleSelector = await SemanticSimilarityExampleSelector.fromExamples(
       conventionalExamples,
-      new OpenAIEmbeddings(),
-      HNSWLib,
-      { k: 1 }
+      new OpenAIEmbeddings({
+        openAIApiKey: this.params.apiKey,
+      }),
+      MemoryVectorStore,
     );  
 
     const dynamicPrompt = new FewShotPromptTemplate({
@@ -40,11 +45,10 @@ export class ConventionalGenerator {
     });
 
     
-    const chain = dynamicPrompt.pipe(openAi);
+    const chain = dynamicPrompt.pipe(this.openAi);
     
-    //replace all braces { } with empty string
-    console.log('diff is', this.diffMessage.replace(/{/g, '').replace(/}/g, ''));
-    const result = await chain.invoke({ diff:  this.diffMessage.replace(/{/g, '').replace(/}/g, '') });
+    const diff = this.diffMessage.replace(/{/g, '').replace(/}/g, '').substring(0, 3800);
+    const result = await chain.invoke({ diff });
     console.log('result is', result);
     return result;
   }

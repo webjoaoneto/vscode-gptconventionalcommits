@@ -20,8 +20,12 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		const apiKey = vscode.workspace.getConfiguration('gptconventionalcommit').get('apiKey');
 
+		if(!apiKey) {
+			vscode.window.showErrorMessage('No api key found!');
+			return;
+		}
 		const c = new ConventionalGenerator(diff, {
-			apiKey
+			apiKey: `${apiKey}`
 		});
 
 		const res = c.getCommitMessage().then((result) => {

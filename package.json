@@ -2,11 +2,15 @@
   "name": "gptconventionalcommit",
   "displayName": "gptconventionalcommit",
   "description": "Generates a conventional commit description with ChatGpt",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.82.0"
   },
-  "publisher": "WebJoaoNeto",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webjoaoneto/vscode-gptconventionalcommits"
+  },
+  "publisher": "DevJoaoNeto",
   "categories": [
     "Other",
     "SCM Providers"
@@ -22,7 +26,6 @@
   "icon": "assets/icon256.png",
   "activationEvents": [],
   "main": "./out/extension.js",
-  
   "contributes": {
     "menus": {
       "scm/title": [
@@ -33,7 +36,7 @@
         }
       ]
     },
-    "configuration":[
+    "configuration": [
       {
         "title": "OpenApi API Key",
         "properties": {
