@@ -2,7 +2,7 @@
   "name": "gptconventionalcommit",
   "displayName": "OpenAI Conventional Commit Generator for Git",
   "description": "Generates a conventional commit description with ChatGpt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.82.0"
   },
