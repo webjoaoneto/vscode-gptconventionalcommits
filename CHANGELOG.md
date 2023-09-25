@@ -1,3 +1,11 @@
+# 0.2.0 (2023-09-25)
+
+
+### Features
+
+* add examples to training data ([1fa8c91](https://github.com/webjoaoneto/vscode-gptconventionalcommits/commit/1fa8c91615e4d316630e5a0bbf6b3f691a11912f))
+
+
 ## 0.1.2 (2023-09-24)
 * doc update and name update
 
