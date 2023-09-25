@@ -15,17 +15,15 @@ export class ConventionalGenerator {
     const prompt = new PromptTemplate(
       {
         inputVariables: ["diff", "answer"],
-        template: `
-          Please provide a conventional commit message for the following change:
-          Changes: {diff}
-    
-          Answer: {answer}
-        `
+        template: `Please provide a conventional commit message for the following change:
+{diff}
+
+Answer: {answer}`
       });
 
       const few_shot_prompt = new FewShotPromptTemplate(
         {
-          examples: examples,
+          examples,
           examplePrompt: prompt,
           suffix: "Changes: {diff}",
           inputVariables: ["diff"],
@@ -40,7 +38,7 @@ export class ConventionalGenerator {
 
   async getCommitMessage(): Promise<string> {
     return this.chain.invoke({
-      diff: this.diffMessage.slice(0, 2000)
+      diff: this.diffMessage.slice(0, 1000)
     }).then(res => {
       return res.trim().replace(/^Answer: /, "").replace(/\n$/, "");
     });
